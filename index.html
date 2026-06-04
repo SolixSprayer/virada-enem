@@ -1866,19 +1866,26 @@ async function saveUser() {
             .from('perfis')
             .upsert({
               id: session.user.id,
-              nome: u.nome || currentUser,
-              avatar: u.avatar || '?',
+              email: session.user.email,
+              nome: u.nome || u.name || currentUser,
               xp: u.xp || 0,
-              nivel: u.nivel || 'Calouro',
-              dias: u.dias || 0,
               streak: u.streak || 0,
-              questoes: u.questoes || 0,
-              redacoes: u.redacoes || 0,
-              questoesRespondidas: u.questoesRespondidas || [],
-              historicoSimulados: u.historicoSimulados || [],
-              cronogramaStatus: u.cronogramaStatus || {},
-              unlockedConquistas: u.unlockedConquistas || [],
-              historicoRedacoes: u.historicoRedacoes || [],
+              dados_progresso: {
+                avatar: u.avatar || '?',
+                nivel: u.nivel || 'Calouro',
+                dias: u.dias || 0,
+                lastStudy: u.lastStudy || null,
+                startDate: u.startDate || new Date().toISOString(),
+                questoes: u.questoes || 0,
+                redacoes: u.redacoes || 0,
+                diasConcluidos: u.diasConcluidos || [],
+                historico: u.historico || [],
+                conquistas: u.conquistas || [],
+                questoesRespondidas: u.questoesRespondidas || [],
+                historicoSimulados: u.historicoSimulados || [],
+                cronogramaStatus: u.cronogramaStatus || {},
+                historicoRedacoes: u.historicoRedacoes || []
+              },
               updated_at: new Date().toISOString()
             });
         }
@@ -1933,7 +1940,7 @@ function switchSplashTab(mode) {
       tabLogin.style.opacity = '0.7';
     }
     if (regNameWrap) regNameWrap.style.display = 'block';
-    if (submitBtn) submitBtn.textContent = 'Criar Conta Grátis →';
+    if (submitBtn) submitBtn.textContent = 'Cadastrar-se →';
   }
 }
 
@@ -1965,7 +1972,7 @@ async function handleAuthSubmit() {
   }
 
   submitBtn.disabled = true;
-  submitBtn.textContent = authMode === 'login' ? 'Entrando...' : 'Criando Conta...';
+  submitBtn.textContent = authMode === 'login' ? 'Entrando...' : 'Cadastrando...';
   if (errorMsg) errorMsg.style.display = 'none';
 
   if (!supabaseClient) {
@@ -1974,7 +1981,7 @@ async function handleAuthSubmit() {
       errorMsg.style.display = 'block';
     }
     submitBtn.disabled = false;
-    submitBtn.textContent = authMode === 'login' ? 'Entrar na Plataforma →' : 'Criar Conta Grátis →';
+    submitBtn.textContent = authMode === 'login' ? 'Entrar na Plataforma →' : 'Cadastrar-se →';
     return;
   }
 
@@ -2007,19 +2014,26 @@ async function handleAuthSubmit() {
         .from('perfis')
         .insert({
           id: data.user.id,
+          email: email,
           nome: nome,
-          avatar: nome.charAt(0).toUpperCase(),
           xp: 0,
-          nivel: 'Calouro',
-          dias: 0,
           streak: 0,
-          questoes: 0,
-          redacoes: 0,
-          questoesRespondidas: [],
-          historicoSimulados: [],
-          cronogramaStatus: {},
-          unlockedConquistas: [],
-          historicoRedacoes: [],
+          dados_progresso: {
+            avatar: nome.charAt(0).toUpperCase(),
+            nivel: 'Calouro',
+            dias: 0,
+            lastStudy: null,
+            startDate: new Date().toISOString(),
+            questoes: 0,
+            redacoes: 0,
+            diasConcluidos: [],
+            historico: [],
+            conquistas: [],
+            questoesRespondidas: [],
+            historicoSimulados: [],
+            cronogramaStatus: {},
+            historicoRedacoes: []
+          },
           updated_at: new Date().toISOString()
         });
 
@@ -2042,7 +2056,7 @@ async function handleAuthSubmit() {
     }
   } finally {
     submitBtn.disabled = false;
-    submitBtn.textContent = authMode === 'login' ? 'Entrar na Plataforma →' : 'Criar Conta Grátis →';
+    submitBtn.textContent = authMode === 'login' ? 'Entrar na Plataforma →' : 'Cadastrar-se →';
   }
 }
 
@@ -2058,37 +2072,49 @@ async function carregarPerfilDoUsuario(user) {
 
     let profileData = null;
     if (perfil) {
+      const prog = perfil.dados_progresso || {};
+      const nomeCompleto = perfil.nome || user.user_metadata?.full_name || user.email.split('@')[0];
       profileData = {
-        nome: perfil.nome,
-        avatar: perfil.avatar || '?',
-        xp: perfil.xp || 0,
-        nivel: perfil.nivel || 'Calouro',
-        dias: perfil.dias || 0,
-        streak: perfil.streak || 0,
-        questoes: perfil.questoes || 0,
-        redacoes: perfil.redacoes || 0,
-        questoesRespondidas: perfil.questoesRespondidas || [],
-        historicoSimulados: perfil.historicoSimulados || [],
-        cronogramaStatus: perfil.cronogramaStatus || {},
-        unlockedConquistas: perfil.unlockedConquistas || [],
-        historicoRedacoes: perfil.historicoRedacoes || []
+        nome: nomeCompleto,
+        name: nomeCompleto,
+        avatar: prog.avatar || nomeCompleto.charAt(0).toUpperCase() || '?',
+        xp: perfil.xp !== undefined ? perfil.xp : 0,
+        nivel: prog.nivel || 'Calouro',
+        dias: prog.dias !== undefined ? prog.dias : 0,
+        streak: perfil.streak !== undefined ? perfil.streak : 0,
+        lastStudy: prog.lastStudy || null,
+        startDate: prog.startDate || new Date().toISOString(),
+        questoes: prog.questoes !== undefined ? prog.questoes : 0,
+        redacoes: prog.redacoes !== undefined ? prog.redacoes : 0,
+        diasConcluidos: prog.diasConcluidos || [],
+        historico: prog.historico || [],
+        conquistas: prog.conquistas || [],
+        questoesRespondidas: prog.questoesRespondidas || [],
+        historicoSimulados: prog.historicoSimulados || [],
+        cronogramaStatus: prog.cronogramaStatus || {},
+        historicoRedacoes: prog.historicoRedacoes || []
       };
     } else {
       // Criar caso perfil não exista
-      const nomeCompleto = user.user_metadata.full_name || user.email.split('@')[0];
+      const nomeCompleto = user.user_metadata?.full_name || user.email.split('@')[0];
       profileData = {
         nome: nomeCompleto,
+        name: nomeCompleto,
         avatar: nomeCompleto.charAt(0).toUpperCase(),
         xp: 0,
         nivel: 'Calouro',
         dias: 0,
         streak: 0,
+        lastStudy: null,
+        startDate: new Date().toISOString(),
         questoes: 0,
         redacoes: 0,
+        diasConcluidos: [],
+        historico: [],
+        conquistas: [],
         questoesRespondidas: [],
         historicoSimulados: [],
         cronogramaStatus: {},
-        unlockedConquistas: [],
         historicoRedacoes: []
       };
 
@@ -2096,19 +2122,26 @@ async function carregarPerfilDoUsuario(user) {
         .from('perfis')
         .insert({
           id: user.id,
+          email: user.email,
           nome: profileData.nome,
-          avatar: profileData.avatar,
           xp: 0,
-          nivel: 'Calouro',
-          dias: 0,
           streak: 0,
-          questoes: 0,
-          redacoes: 0,
-          questoesRespondidas: [],
-          historicoSimulados: [],
-          cronogramaStatus: {},
-          unlockedConquistas: [],
-          historicoRedacoes: [],
+          dados_progresso: {
+            avatar: profileData.avatar,
+            nivel: profileData.nivel,
+            dias: profileData.dias,
+            lastStudy: profileData.lastStudy,
+            startDate: profileData.startDate,
+            questoes: profileData.questoes,
+            redacoes: profileData.redacoes,
+            diasConcluidos: profileData.diasConcluidos,
+            historico: profileData.historico,
+            conquistas: profileData.conquistas,
+            questoesRespondidas: profileData.questoesRespondidas,
+            historicoSimulados: profileData.historicoSimulados,
+            cronogramaStatus: profileData.cronogramaStatus,
+            historicoRedacoes: profileData.historicoRedacoes
+          },
           updated_at: new Date().toISOString()
         });
     }
