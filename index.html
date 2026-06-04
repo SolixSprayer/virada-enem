@@ -811,6 +811,26 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
 .sim-opt{padding:9px 18px;border-radius:10px;border:1px solid var(--border-2);background:var(--card-2);font-family:inherit;font-size:13px;font-weight:700;color:var(--text-2);cursor:pointer;transition:.15s;}
 .sim-opt.active{background:var(--primary);color:#fff;border-color:var(--primary);}
 .sim-opt:hover:not(.active){border-color:var(--border);color:var(--text);}
+.sim-opt-card {
+  padding: 16px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border-2);
+  background: var(--card-2);
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.sim-opt-card:hover:not(.active) {
+  border-color: var(--primary);
+  background: rgba(108, 99, 255, 0.05);
+}
+.sim-opt-card.active {
+  border-color: var(--primary);
+  background: rgba(108, 99, 255, 0.1);
+}
 .sim-start-btn{width:100%;padding:15px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--primary),#9B94FF);font-family:inherit;font-size:15px;font-weight:800;color:#fff;cursor:pointer;transition:.2s;margin-top:6px;}
 .sim-start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(108,99,255,.4);}
 /* Question screen */
@@ -1605,7 +1625,7 @@ input[type=range].tp-range{flex:1;height:4px;accent-color:var(--primary);}
     <div class="sidebar-footer">
       <div class="theme-toggle" id="themeToggle">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/></svg>
-        Modo claro
+        <span id="themeToggleText">Modo claro</span>
         <div class="toggle-track" id="toggleTrack"><div class="toggle-thumb"></div></div>
       </div>
     </div>
@@ -2216,10 +2236,6 @@ input[type=range].tp-range{flex:1;height:4px;accent-color:var(--primary);}
             <div class="red-section-title" style="margin-top:8px;">📜 Histórico de Redações</div>
             <div class="red-history-list" id="redHistoryList"></div>
 
-            <!-- Testing Reset Button -->
-            <div style="margin-top: 14px; text-align: center; border-top: 1px dashed var(--border-2); padding-top: 12px;">
-              <button onclick="resetRedacoesForTesting()" style="background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.2); color: #EF4444; font-size: 10px; font-weight: 700; padding: 6px 12px; border-radius: 6px; cursor: pointer; transition: 0.2s;" onmouseover="this.style.background='rgba(239, 68, 68, 0.15)'" onmouseout="this.style.background='rgba(239, 68, 68, 0.08)'">🧪 Resetar Redações (Modo Teste)</button>
-            </div>
           </div>
         </div>
 
@@ -2871,7 +2887,7 @@ document.getElementById('themeToggle').addEventListener('click', () => {
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
   const track = document.getElementById('toggleTrack');
   track.classList.toggle('on', !isDark);
-  document.querySelector('.theme-toggle').childNodes[2].textContent = isDark ? ' Modo claro' : ' Modo escuro';
+  document.getElementById('themeToggleText').textContent = isDark ? ' Modo claro' : ' Modo escuro';
 });
 
 // ═══════════════════════════════════════
