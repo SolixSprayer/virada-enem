@@ -3097,19 +3097,6 @@ async function initSplash() {
   carregarQuestoesDoBanco();
   loadData();
 
-  if (supabaseClient) {
-    try {
-      const { data: { session } } = await supabaseClient.auth.getSession();
-      if (session && session.user) {
-        console.log('Sessão ativa detectada. Entrando direto...');
-        await loadUserProfileAndEnter(session.user);
-        return;
-      }
-    } catch (err) {
-      console.error('Erro ao verificar sessão ativa:', err);
-    }
-  }
-
   const submitBtn = document.getElementById('authSubmitBtn');
   if (submitBtn) {
     submitBtn.onclick = handleAuthSubmit;
@@ -3124,6 +3111,19 @@ async function initSplash() {
       });
     }
   });
+
+  if (supabaseClient) {
+    try {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session && session.user) {
+        console.log('Sessão ativa detectada. Entrando direto...');
+        await loadUserProfileAndEnter(session.user);
+        return;
+      }
+    } catch (err) {
+      console.error('Erro ao verificar sessão ativa:', err);
+    }
+  }
 }
 
 function enterApp(name) {
