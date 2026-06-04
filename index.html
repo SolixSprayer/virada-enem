@@ -2065,100 +2065,80 @@ input[type=range].tp-range{flex:1;height:4px;accent-color:var(--primary);}
         <!-- CONFIG -->
         <div id="simConfigView">
           <div class="sim-header">
-            <div class="sim-title">🧠 Central de Simulados</div>
-            <div class="sim-sub">Treine com provas oficiais em tempo real, modo às cegas e correção pedagógica via TRI</div>
+            <div class="sim-title">ðŸ§  Simulados</div>
+            <div class="sim-sub">Treine com provas oficiais em tempo real e modo Ã s cegas</div>
           </div>
           
-          <div class="sim-config" style="max-width:850px;">
-            <div class="sim-config-title">📝 Selecione o tipo de simulado</div>
+          <div class="sim-config" style="max-width:950px; background:transparent; border:none; padding:0; box-shadow:none;">
             
-            <!-- Exam Type Selection Grid -->
-            <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px, 1fr)); gap:12px; margin-bottom:24px;" id="simTypeGrid">
-              <div class="sim-opt-card active" data-type="enem1" onclick="selectSimType('enem1', this)">
-                <div style="font-size:24px; margin-bottom:8px;">📊</div>
-                <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">ENEM — 1º Dia</div>
-                <div style="font-size:11px; color:var(--text-3);">90 questões (Humanas + Linguagens)<br>Tempo Limite: 5h 30m</div>
+            <!-- Two Columns Layout -->
+            <div class="sim-layout-grid" style="display:grid; grid-template-columns: 1fr 2fr; gap:24px; margin-bottom:24px;">
+              
+              <!-- Left Column: ENEM -->
+              <div class="sim-column-section" style="background:rgba(255,255,255,0.02); border:1px solid var(--border-2); border-radius:16px; padding:20px; display:flex; flex-direction:column; gap:12px;">
+                <div style="font-size:15px; font-weight:800; color:var(--primary); padding-bottom:8px; border-bottom:1px solid var(--border-2); display:flex; align-items:center; gap:8px;">ðŸ“š ENEM</div>
+                <div style="display:flex; flex-direction:column; gap:12px;" id="simTypeGridEnem">
+                  <div class="sim-opt-card active" data-type="enem1" onclick="selectSimType('enem1', this)" style="width:100%; box-sizing:border-box;">
+                    <div style="font-size:24px; margin-bottom:8px;">ðŸ“Š</div>
+                    <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">ENEM â€” 1Âº Dia</div>
+                    <div style="font-size:11px; color:var(--text-3);">90 questÃµes (Humanas + Linguagens)<br>Tempo Limite: 5h 30m</div>
+                  </div>
+                  <div class="sim-opt-card" data-type="enem2" onclick="selectSimType('enem2', this)" style="width:100%; box-sizing:border-box;">
+                    <div style="font-size:24px; margin-bottom:8px;">ðŸ“Š</div>
+                    <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">ENEM â€” 2Âº Dia</div>
+                    <div style="font-size:11px; color:var(--text-3);">90 questÃµes (MatemÃ¡tica + Natureza)<br>Tempo Limite: 5h</div>
+                  </div>
+                </div>
               </div>
-              <div class="sim-opt-card" data-type="enem2" onclick="selectSimType('enem2', this)">
-                <div style="font-size:24px; margin-bottom:8px;">📊</div>
-                <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">ENEM — 2º Dia</div>
-                <div style="font-size:11px; color:var(--text-3);">90 questões (Matemática + Natureza)<br>Tempo Limite: 5h</div>
+              
+              <!-- Right Column: Outros Vestibulares -->
+              <div class="sim-column-section" style="background:rgba(255,255,255,0.02); border:1px solid var(--border-2); border-radius:16px; padding:20px; display:flex; flex-direction:column; gap:12px;">
+                <div style="font-size:15px; font-weight:800; color:var(--secondary); padding-bottom:8px; border-bottom:1px solid var(--border-2); display:flex; align-items:center; gap:8px;">ðŸ« Outros Vestibulares</div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(200px, 1fr)); gap:12px;" id="simTypeGridOthers">
+                  <div class="sim-opt-card" data-type="fuvest" onclick="selectSimType('fuvest', this)">
+                    <div style="font-size:24px; margin-bottom:8px;">ðŸ¦</div>
+                    <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">FUVEST (1Âª Fase)</div>
+                    <div style="font-size:11px; color:var(--text-3);">90 questÃµes de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
+                  </div>
+                  <div class="sim-opt-card" data-type="unicamp" onclick="selectSimType('unicamp', this)">
+                    <div style="font-size:24px; margin-bottom:8px;">ðŸŽ“</div>
+                    <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UNICAMP (1Âª Fase)</div>
+                    <div style="font-size:11px; color:var(--text-3);">90 questÃµes de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
+                  </div>
+                  <div class="sim-opt-card" data-type="unesp" onclick="selectSimType('unesp', this)">
+                    <div style="font-size:24px; margin-bottom:8px;">ðŸŒ²</div>
+                    <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UNESP (1Âª Fase)</div>
+                    <div style="font-size:11px; color:var(--text-3);">90 questÃµes de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
+                  </div>
+                  <div class="sim-opt-card" data-type="unifesp" onclick="selectSimType('unifesp', this)">
+                    <div style="font-size:24px; margin-bottom:8px;">ðŸ¥</div>
+                    <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UNIFESP (Gerais)</div>
+                    <div style="font-size:11px; color:var(--text-3);">90 questÃµes de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
+                  </div>
+                  <div class="sim-opt-card" data-type="ufmg" onclick="selectSimType('ufmg', this)">
+                    <div style="font-size:24px; margin-bottom:8px;">ðŸ”ï¸</div>
+                    <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UFMG (ClÃ¡ssico)</div>
+                    <div style="font-size:11px; color:var(--text-3);">90 questÃµes de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
+                  </div>
+                  <div class="sim-opt-card" data-type="ufrj" onclick="selectSimType('ufrj', this)">
+                    <div style="font-size:24px; margin-bottom:8px;">ðŸŒŠ</div>
+                    <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UFRJ (ClÃ¡ssico)</div>
+                    <div style="font-size:11px; color:var(--text-3);">90 questÃµes de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
+                  </div>
+                  <div class="sim-opt-card" data-type="uem" onclick="selectSimType('uem', this)">
+                    <div style="font-size:24px; margin-bottom:8px;">ðŸŽ¯</div>
+                    <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UEM (1Âª Fase)</div>
+                    <div style="font-size:11px; color:var(--text-3);">40 questÃµes de Conhecimentos Gerais<br>Tempo Limite: 4h</div>
+                  </div>
+                </div>
               </div>
-              <div class="sim-opt-card" data-type="fuvest" onclick="selectSimType('fuvest', this)">
-                <div style="font-size:24px; margin-bottom:8px;">🦁</div>
-                <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">FUVEST (1ª Fase)</div>
-                <div style="font-size:11px; color:var(--text-3);">90 questões de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
-              </div>
-              <div class="sim-opt-card" data-type="unesp" onclick="selectSimType('unesp', this)">
-                <div style="font-size:24px; margin-bottom:8px;">🌲</div>
-                <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UNESP (1ª Fase)</div>
-                <div style="font-size:11px; color:var(--text-3);">90 questões de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
-              </div>
-              <div class="sim-opt-card" data-type="unicamp" onclick="selectSimType('unicamp', this)">
-                <div style="font-size:24px; margin-bottom:8px;">🎓</div>
-                <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UNICAMP (1ª Fase)</div>
-                <div style="font-size:11px; color:var(--text-3);">90 questões de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
-              </div>
-              <div class="sim-opt-card" data-type="unifesp" onclick="selectSimType('unifesp', this)">
-                <div style="font-size:24px; margin-bottom:8px;">🏥</div>
-                <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UNIFESP (Conhecimentos)</div>
-                <div style="font-size:11px; color:var(--text-3);">90 questões de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
-              </div>
-              <div class="sim-opt-card" data-type="ufmg" onclick="selectSimType('ufmg', this)">
-                <div style="font-size:24px; margin-bottom:8px;">🏔️</div>
-                <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UFMG (Modelo Clássico)</div>
-                <div style="font-size:11px; color:var(--text-3);">90 questões de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
-              </div>
-              <div class="sim-opt-card" data-type="ufrj" onclick="selectSimType('ufrj', this)">
-                <div style="font-size:24px; margin-bottom:8px;">🌊</div>
-                <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">UFRJ (Modelo Clássico)</div>
-                <div style="font-size:11px; color:var(--text-3);">90 questões de Conhecimentos Gerais<br>Tempo Limite: 5h</div>
-              </div>
-              <div class="sim-opt-card" data-type="custom" onclick="selectSimType('custom', this)">
-                <div style="font-size:24px; margin-bottom:8px;">⚙️</div>
-                <div style="font-size:14px; font-weight:800; color:var(--text); margin-bottom:4px;">Personalizado Rápido</div>
-                <div style="font-size:11px; color:var(--text-3);">Configure temas, tamanho da prova e dificuldade do seu jeito.</div>
-              </div>
+              
             </div>
-                        <!-- Custom Options Panel (hidden unless custom selected) -->
-            <div id="simCustomOpts" style="display:none; padding:18px; background:rgba(255,255,255,0.02); border:1px solid var(--border-2); border-radius:12px; margin-bottom:20px;">
-              <div class="sim-field">
-                <div class="sim-label">Área de conhecimento</div>
-                <div class="sim-options" id="simAreaOpts">
-                  <div class="sim-opt active" data-val="TODAS">Todas as áreas</div>
-                  <div class="sim-opt" data-val="MT">Matemática</div>
-                  <div class="sim-opt" data-val="FI">Física</div>
-                  <div class="sim-opt" data-val="QM">Química</div>
-                  <div class="sim-opt" data-val="BI">Biologia</div>
-                  <div class="sim-opt" data-val="HI">História</div>
-                  <div class="sim-opt" data-val="GE">Geografia</div>
-                  <div class="sim-opt" data-val="PT">Português</div>
-                  <div class="sim-opt" data-val="FL">Filosofia</div>
-                </div>
-              </div>
-              <div class="sim-field">
-                <div class="sim-label">Quantidade de questões</div>
-                <div class="sim-options" id="simQtdOpts">
-                  <div class="sim-opt active" data-val="10">10 questões</div>
-                  <div class="sim-opt" data-val="20">20 questões</div>
-                  <div class="sim-opt" data-val="30">30 questões</div>
-                  <div class="sim-opt" data-val="45">45 questões</div>
-                </div>
-              </div>
-              <div class="sim-field">
-                <div class="sim-label">Dificuldade</div>
-                <div class="sim-options" id="simDifOpts">
-                  <div class="sim-opt active" data-val="facil">Fácil</div>
-                  <div class="sim-opt" data-val="medio">Médio</div>
-                  <div class="sim-opt" data-val="dificil">Difícil</div>
-                </div>
-              </div>
-            </div>
-
-            <button class="sim-start-btn" onclick="startSimulado()">▶ Iniciar Simulado</button>
+            
+            <button class="sim-start-btn" onclick="startSimulado()">â–¶ Iniciar Simulado</button>
           </div>
         </div>
-
+        
         <!-- QUESTION SCREEN -->
         <div class="sim-question-screen" id="simQuestionView">
           <div style="display:grid; grid-template-columns: 1fr 280px; gap:20px; align-items:start;">
@@ -5694,98 +5674,184 @@ const simState = {
 // Mapeamento de Vestibulares para Área de Conhecimento, Duração e Títulos
 const EXAM_PROFILES = {
   enem1: {
-    nome: 'Simulado Oficial ENEM — 1º Dia',
-    duration: 5.5 * 60 * 60 * 1000, // 5h 30m
-    areas: ['HI', 'GE', 'PT', 'FL', 'SO', 'LT'],
-    size: 90
+    nome: 'Simulado Oficial ENEM â€” 1Âº Dia',
+    duration: 5.5 * 60 * 60 * 1000,
+    areas: ['HI', 'GE', 'PT', 'FL', 'SO', 'LT', 'LE'],
+    composition: {
+      'PT': 40,
+      'LE': 5,
+      'HI': 11,
+      'GE': 11,
+      'FL': 11,
+      'SO': 12
+    }
   },
   enem2: {
-    nome: 'Simulado Oficial ENEM — 2º Dia',
-    duration: 5.0 * 60 * 60 * 1000, // 5h
+    nome: 'Simulado Oficial ENEM â€” 2Âº Dia',
+    duration: 5.0 * 60 * 60 * 1000,
     areas: ['MT', 'FI', 'QM', 'BI'],
-    size: 90
+    composition: {
+      'MT': 45,
+      'FI': 15,
+      'QM': 15,
+      'BI': 15
+    }
   },
   fuvest: {
-    nome: 'Simulado FUVEST — 1ª Fase',
-    duration: 5.0 * 60 * 60 * 1000, // 5h
-    areas: ['MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'PT', 'LT', 'FL', 'SO'],
-    size: 90
-  },
-  unesp: {
-    nome: 'Simulado UNESP — 1ª Fase',
-    duration: 5.0 * 60 * 60 * 1000, // 5h
-    areas: ['MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'PT', 'LT', 'FL', 'SO'],
-    size: 90
+    nome: 'Simulado FUVEST â€” 1Âª Fase',
+    duration: 5.0 * 60 * 60 * 1000,
+    areas: ['PT', 'LE', 'MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'FL', 'SO'],
+    composition: {
+      'PT': 18,
+      'LE': 10,
+      'MT': 11,
+      'FI': 11,
+      'QM': 11,
+      'BI': 11,
+      'HI': 11,
+      'GE': 11,
+      'FL': 3,
+      'SO': 3
+    }
   },
   unicamp: {
-    nome: 'Simulado UNICAMP — 1ª Fase',
-    duration: 5.0 * 60 * 60 * 1000, // 5h
-    areas: ['MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'PT', 'LT', 'FL', 'SO'],
-    size: 90
+    nome: 'Simulado UNICAMP â€” 1Âª Fase',
+    duration: 5.0 * 60 * 60 * 1000,
+    areas: ['PT', 'LE', 'MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'FL', 'SO'],
+    composition: {
+      'PT': 20,
+      'LE': 8,
+      'MT': 12,
+      'FI': 10,
+      'QM': 10,
+      'BI': 10,
+      'HI': 8,
+      'GE': 8,
+      'FL': 2,
+      'SO': 2
+    }
+  },
+  unesp: {
+    nome: 'Simulado UNESP â€” 1Âª Fase',
+    duration: 5.0 * 60 * 60 * 1000,
+    areas: ['PT', 'LE', 'MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'FL', 'SO'],
+    composition: {
+      'PT': 20,
+      'LE': 10,
+      'MT': 10,
+      'FI': 10,
+      'QM': 10,
+      'BI': 10,
+      'HI': 8,
+      'GE': 8,
+      'FL': 2,
+      'SO': 2
+    }
   },
   unifesp: {
-    nome: 'Simulado UNIFESP — Conhecimentos Gerais',
-    duration: 5.0 * 60 * 60 * 1000, // 5h
-    areas: ['MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'PT', 'LT', 'FL', 'SO'],
-    size: 90
+    nome: 'Simulado UNIFESP â€” Conhecimentos Gerais',
+    duration: 5.0 * 60 * 60 * 1000,
+    areas: ['PT', 'LE', 'MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'FL', 'SO'],
+    composition: {
+      'PT': 18,
+      'LE': 10,
+      'MT': 11,
+      'FI': 11,
+      'QM': 11,
+      'BI': 11,
+      'HI': 11,
+      'GE': 11,
+      'FL': 3,
+      'SO': 3
+    }
   },
   ufmg: {
-    nome: 'Simulado UFMG — Conhecimentos Gerais',
-    duration: 5.0 * 60 * 60 * 1000, // 5h
-    areas: ['MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'PT', 'LT', 'FL', 'SO'],
-    size: 90
+    nome: 'Simulado UFMG â€” Conhecimentos Gerais',
+    duration: 5.0 * 60 * 60 * 1000,
+    areas: ['PT', 'LE', 'MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'FL', 'SO'],
+    composition: {
+      'PT': 18,
+      'LE': 10,
+      'MT': 11,
+      'FI': 11,
+      'QM': 11,
+      'BI': 11,
+      'HI': 11,
+      'GE': 11,
+      'FL': 3,
+      'SO': 3
+    }
   },
   ufrj: {
-    nome: 'Simulado UFRJ — Conhecimentos Gerais',
-    duration: 5.0 * 60 * 60 * 1000, // 5h
-    areas: ['MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'PT', 'LT', 'FL', 'SO'],
-    size: 90
+    nome: 'Simulado UFRJ â€” Conhecimentos Gerais',
+    duration: 5.0 * 60 * 60 * 1000,
+    areas: ['PT', 'LE', 'MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'FL', 'SO'],
+    composition: {
+      'PT': 18,
+      'LE': 10,
+      'MT': 11,
+      'FI': 11,
+      'QM': 11,
+      'BI': 11,
+      'HI': 11,
+      'GE': 11,
+      'FL': 3,
+      'SO': 3
+    }
   },
-  custom: {
-    nome: 'Simulado Rápido Personalizado',
-    duration: 0, // Sem limite ou proporcional
-    areas: ['TODAS'],
-    size: 10
+  uem: {
+    nome: 'Simulado UEM â€” 1Âª Fase',
+    duration: 4.0 * 60 * 60 * 1000,
+    areas: ['PT', 'LE', 'MT', 'FI', 'QM', 'BI', 'HI', 'GE', 'FL', 'SO'],
+    composition: {
+      'PT': 8,
+      'LE': 4,
+      'MT': 6,
+      'FI': 4,
+      'QM': 4,
+      'BI': 4,
+      'HI': 4,
+      'GE': 4,
+      'FL': 1,
+      'SO': 1
+    }
   }
 };
 
-let activeSimType = 'enem1'; // default active selection card
 
-function initSimOpts() {
-  // Configura os botões da área personalizada
-  ['simAreaOpts','simQtdOpts','simDifOpts'].forEach(groupId => {
-    const group = document.getElementById(groupId);
-    if (!group) return;
-    group.querySelectorAll('.sim-opt').forEach(opt => {
-      opt.addEventListener('click', () => {
-        group.querySelectorAll('.sim-opt').forEach(o => o.classList.remove('active'));
-        opt.classList.add('active');
-      });
-    });
-  });
+/function getVestibularFromQuestion(q) {
+  const fonte = (q.fonte || "").toUpperCase();
+  if (fonte.includes("ENEM")) {
+    const enem1Areas = ['HI', 'GE', 'PT', 'FL', 'SO', 'LT', 'LE'];
+    return enem1Areas.includes(q.area) ? "enem1" : "enem2";
+  }
+  if (fonte.includes("FUVEST")) return "fuvest";
+  if (fonte.includes("UNICAMP")) return "unicamp";
+  if (fonte.includes("UNESP")) return "unesp";
+  if (fonte.includes("UNIFESP")) return "unifesp";
+  if (fonte.includes("UFMG")) return "ufmg";
+  if (fonte.includes("UFRJ")) return "ufrj";
+  if (fonte.includes("UEM")) return "uem";
+  return null;
 }
 
 function selectSimType(type, cardEl) {
   activeSimType = type;
   
   // Highlight card visual
-  const grid = document.getElementById('simTypeGrid');
-  if (grid) {
-    grid.querySelectorAll('.sim-opt-card').forEach(c => c.classList.remove('active'));
-  }
+  const grids = [document.getElementById('simTypeGridEnem'), document.getElementById('simTypeGridOthers')];
+  grids.forEach(grid => {
+    if (grid) {
+      grid.querySelectorAll('.sim-opt-card').forEach(c => c.classList.remove('active'));
+    }
+  });
   if (cardEl) {
     cardEl.classList.add('active');
-  }
-
-  // Show/Hide custom settings panel
-  const customPanel = document.getElementById('simCustomOpts');
-  if (customPanel) {
-    customPanel.style.display = type === 'custom' ? 'block' : 'none';
   }
 }
 
 function togglePauseSimulado() {
-  if (!simState.timerInterval && simState.timeLeft <= 0) return; // Not running
+  if (!simState.timerInterval && simState.timeLeft <= 0) return;
   
   simState.isPaused = !simState.isPaused;
   const pauseOverlay = document.getElementById('simPauseOverlay');
@@ -5797,7 +5863,6 @@ function togglePauseSimulado() {
   } else {
     if (pauseOverlay) pauseOverlay.style.display = 'none';
     
-    // Resume countdown timer
     simState.timerInterval = setInterval(() => {
       simState.timeLeft -= 1000;
       if (simState.timeLeft <= 0) {
@@ -5805,7 +5870,7 @@ function togglePauseSimulado() {
         clearInterval(simState.timerInterval);
         simState.timerInterval = null;
         showToast('Tempo limite esgotado! Seu simulado foi entregue automaticamente.', 'info');
-        finishSimulado(true); // auto submit
+        finishSimulado(true);
       } else {
         updateTimerText();
       }
@@ -5821,34 +5886,17 @@ function updateTimerText() {
   const mins = Math.floor((ms % 3600000) / 60000);
   const secs = Math.floor((ms % 60000) / 1000);
   const pad = (n) => String(n).padStart(2, '0');
-  el.textContent = `${pad(hrs)}:${pad(mins)}:${pad(secs)}`;
+  el.textContent = ${pad(hrs)}::;
 }
 
 function getSimConfig() {
   const profile = EXAM_PROFILES[activeSimType];
-  if (activeSimType !== 'custom') {
-    return {
-      type: activeSimType,
-      nome: profile.nome,
-      areas: profile.areas,
-      qtd: profile.size,
-      duration: profile.duration,
-      dif: 'todos'
-    };
-  } else {
-    // Custom test options
-    const area = document.querySelector('#simAreaOpts .sim-opt.active')?.dataset.val || 'TODAS';
-    const qtd = parseInt(document.querySelector('#simQtdOpts .sim-opt.active')?.dataset.val || '10');
-    const dif = document.querySelector('#simDifOpts .sim-opt.active')?.dataset.val || 'medio';
-    return {
-      type: 'custom',
-      nome: 'Simulado Rápido Personalizado',
-      areas: area === 'TODAS' ? ['MT','FI','QM','BI','HI','GE','PT','LT','FL','SO'] : [area],
-      qtd: qtd,
-      duration: qtd * 3 * 60 * 1000, // 3 min por questão
-      dif: dif
-    };
-  }
+  return {
+    type: activeSimType,
+    nome: profile.nome,
+    composition: profile.composition,
+    duration: profile.duration
+  };
 }
 
 async function startSimulado() {
@@ -5859,36 +5907,109 @@ async function startSimulado() {
   simState.isPaused = false;
   simState.timeLeft = cfg.duration;
   
-  // 1. Filtragem da base estática
-  if (!QUESTOES || QUESTOES.length === 0) {
-    QUESTOES = [...QUESTOES_LOCAL];
-  }
-  let pool = [...QUESTOES];
-  pool = pool.filter(q => cfg.areas.includes(q.area));
-  if (cfg.dif !== 'todos') {
-    pool = pool.filter(q => q.dif === cfg.dif);
+  showToast('Gerando simulado...', 'info');
+  
+  let questionsPool = [];
+  
+  if (supabaseClient) {
+    try {
+      // Baixar metadados leve do banco para rodar a composicao e rotacao
+      const { data: metaList, error: errMeta } = await supabaseClient
+        .from('questoes')
+        .select('id, area, fonte');
+        
+      if (errMeta) throw errMeta;
+      questionsPool = metaList || [];
+    } catch (err) {
+      console.error('Erro ao buscar metadados do banco:', err);
+      questionsPool = [...QUESTOES_LOCAL];
+    }
+  } else {
+    questionsPool = [...QUESTOES_LOCAL];
   }
   
-  if (pool.length === 0) pool = [...QUESTOES];
+  // Filtrar pool para o vestibular correspondente
+  let filteredPool = questionsPool.filter(q => {
+    const v = getVestibularFromQuestion(q);
+    return v === cfg.type;
+  });
   
-  // Rotação: Priorizar questões não respondidas pelo usuário
+  if (filteredPool.length === 0) {
+    filteredPool = QUESTOES_LOCAL.filter(q => {
+      const v = getVestibularFromQuestion(q);
+      return v === cfg.type;
+    });
+  }
+  
   const u = getUser();
   const respondidas = u && u.questoesRespondidas ? u.questoesRespondidas : [];
   
-  const unseen = pool.filter(q => !respondidas.includes(q.id)).sort(() => Math.random() - 0.5);
-  const seen = pool.filter(q => respondidas.includes(q.id)).sort(() => Math.random() - 0.5);
-  const rotatedPool = [...unseen, ...seen];
+  let selectedIds = [];
   
-  // Cipar a quantidade máxima de questões para evitar duplicação no mesmo simulado
-  const actualQtd = Math.min(cfg.qtd, rotatedPool.length);
-  const selected = rotatedPool.slice(0, actualQtd).map((q, idx) => ({
-    ...q,
-    simId: idx
-  }));
+  // Realizar composicao de materias e rotacao inteligente anti-repeticao
+  for (const [area, count] of Object.entries(cfg.composition)) {
+    let areaPool = filteredPool.filter(q => q.area === area);
+    
+    let unseen = areaPool.filter(q => !respondidas.includes(q.id));
+    let seen = areaPool.filter(q => respondidas.includes(q.id));
+    
+    // Embaralhar ambos de forma randomica
+    unseen.sort(() => Math.random() - 0.5);
+    seen.sort(() => Math.random() - 0.5);
+    
+    let combined = [...unseen, ...seen];
+    let taken = combined.slice(0, count);
+    
+    taken.forEach(q => selectedIds.push(q.id));
+  }
   
-  simState.questions = selected;
+  if (selectedIds.length === 0) {
+    showToast('NÃ£o hÃ¡ questÃµes cadastradas para este vestibular no banco.', 'warning');
+    return;
+  }
   
-  // 2. Setup do timer regressivo
+  // Baixar os dados completos apenas das questoes selecionadas (carga sob demanda super leve)
+  let fullQuestions = [];
+  if (supabaseClient) {
+    try {
+      const { data, error } = await supabaseClient
+        .from('questoes')
+        .select('*')
+        .in('id', selectedIds);
+        
+      if (error) throw error;
+      fullQuestions = data || [];
+    } catch (err) {
+      console.error('Erro ao buscar questoes completas:', err);
+      fullQuestions = QUESTOES_LOCAL.filter(q => selectedIds.includes(q.id));
+    }
+  } else {
+    fullQuestions = QUESTOES_LOCAL.filter(q => selectedIds.includes(q.id));
+  }
+  
+  // Ordenar as questoes para bater exatamente com selectedIds (preservando o agrupamento por materia)
+  let sortedQuestions = [];
+  selectedIds.forEach((id, idx) => {
+    const q = fullQuestions.find(fq => parseInt(fq.fq_id || fq.id) === id);
+    if (q) {
+      sortedQuestions.push({
+        id: parseInt(q.id),
+        area: q.area,
+        fonte: q.fonte,
+        dif: q.dif,
+        txt: q.txt,
+        opts: q.opts,
+        corr: parseInt(q.corr),
+        exp: q.exp || '',
+        exp_opts: q.exp_opts || [],
+        tri_b: q.tri_b !== undefined ? parseFloat(q.tri_b) : 0.0,
+        simId: idx
+      });
+    }
+  });
+  
+  simState.questions = sortedQuestions;
+  
   if (simState.timerInterval) clearInterval(simState.timerInterval);
   simState.timerInterval = null;
   
@@ -5910,8 +6031,7 @@ async function startSimulado() {
   } else {
     document.getElementById('simTimerWrapper').style.display = 'none';
   }
-
-  // 3. Renderização da interface ativa
+  
   document.getElementById('simActiveTypeLabel').textContent = cfg.nome;
   document.getElementById('simConfigView').style.display = 'none';
   document.getElementById('simResultView').classList.remove('active');
