@@ -1814,30 +1814,6 @@ let profiles = {};
 let currentUser = null;
 var ADMIN_ANTHROPIC_KEY = '';
 
-const TEMAS_REDACAO = [
-  'Desafios para a democratização do acesso à internet no Brasil',
-  'O impacto das redes sociais na saúde mental dos jovens brasileiros',
-  'Caminhos para a valorização de comunidades e povos tradicionais no Brasil',
-  'Os desafios do sistema prisional brasileiro',
-  'Invisibilidade e registro civil: obstáculos para a cidadania no Brasil',
-  'O papel do State na garantia de segurança pública',
-  'Desafios para combater a intolerância religiosa no Brasil',
-  'Ciência e negacionismo: o papel da educação',
-  'Violência contra a mulher: desafios para a proteção',
-  'A questão do lixo eletrônico na sociedade de consumo',
-  'Saúde mental: um desafio para a saúde pública no Brasil',
-  'Impactos da inteligência artificial no mercado de trabalho',
-];
-
-const COMP_NAMES = [
-  'C1 — Domínio da Norma Culta',
-  'C2 — Compreensão da Proposta',
-  'C3 — Seleção de Argumentos',
-  'C4 — Coesão e Coerência',
-  'C5 — Proposta de Intervenção',
-];
-const COMP_COLORS = ['#6C63FF','#3498DB','#27AE60','#E67E22','#E74C3C'];
-
 const LEVELS = [
   {name:'Calouro',xp:0},{name:'Estudante',xp:100},{name:'Dedicado',xp:300},
   {name:'Focado',xp:600},{name:'Avançado',xp:1000},{name:'Expert',xp:1500},
@@ -3873,8 +3849,8 @@ const QUESTOES_LOCAL = [
 ];
 
 // Corrigir questão 7 (sem corr definido)
-QUESTOES[6].corr = 1;
-QUESTOES[6].exp = 'O concreto e o asfalto absorvem mais calor que a vegetação natural e liberam lentamente durante a noite, elevando a temperatura. Além disso, a impermeabilização reduz a evapotranspiração que resfria naturalmente o ambiente. Isso cria a "ilha de calor urbana".';
+QUESTOES_LOCAL[6].corr = 1;
+QUESTOES_LOCAL[6].exp = 'O concreto e o asfalto absorvem mais calor que a vegetação natural e liberam lentamente durante a noite, elevando a temperatura. Além disso, a impermeabilização reduz a evapotranspiração que resfria naturalmente o ambiente. Isso cria a "ilha de calor urbana".';
 
 
 // ═══════════════════════════════════════
