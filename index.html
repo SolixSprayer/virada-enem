@@ -2902,6 +2902,18 @@ async function handleAuthSubmit() {
       if (error) throw error;
       await loadUserProfileAndEnter(data.user);
     } else {
+      // Verificar se o e-mail está na lista de compradores autorizados
+      const { data: isAuthorized, error: authCheckError } = await supabaseClient
+        .rpc('verificar_comprador', { email_busca: email });
+
+      if (authCheckError) {
+        throw new Error('Erro ao validar e-mail de compra. Tente novamente.');
+      }
+
+      if (!isAuthorized) {
+        throw new Error('Este e-mail não consta na lista de compradores. Adquira o acesso para se cadastrar.');
+      }
+
       const { data, error } = await supabaseClient.auth.signUp({
         email: email,
         password: password,
