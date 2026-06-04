@@ -1,6 +1,28 @@
 ﻿<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
+<script>
+  window.addEventListener('error', function(e) {
+    var div = document.createElement('div');
+    div.style.position = 'fixed';
+    div.style.top = '0';
+    div.style.left = '0';
+    div.style.width = '100%';
+    div.style.background = 'rgba(255,0,0,0.95)';
+    div.style.color = 'white';
+    div.style.padding = '20px';
+    div.style.zIndex = '999999';
+    div.style.fontSize = '16px';
+    div.style.fontWeight = 'bold';
+    div.style.fontFamily = 'monospace';
+    div.innerText = 'ERRO DE JS: ' + e.message + ' (Linha ' + e.lineno + ', Coluna ' + e.colno + ')';
+    if (document.body) {
+      document.body.appendChild(div);
+    } else {
+      window.addEventListener('DOMContentLoaded', function() { document.body.appendChild(div); });
+    }
+  });
+</script>
 <meta charset="UTF-8">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1780,7 +1802,7 @@ input[type=range].tp-range{flex:1;height:4px;accent-color:var(--primary);}
 //  SUPABASE CLIENT CONFIGURATION
 // ═══════════════════════════════════════
 const supabaseUrl = 'https://lcczrwjeodsjvbzpgljx.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJip3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjY3pyd2plb2RzanZienBnbGp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MDk4MjAsImV4cCI6MjA5NjA4NTgyMH0.PaZ7p1yDxiu0cS_OzwkVnBazI83p-r23aaaEdtleb_o';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxjY3pyd2plb2RzanZienBnbGp4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1MDk4MjAsImV4cCI6MjA5NjA4NTgyMH0.PaZ7p1yDxiu0cS_OzwkVnBazI83p-r23aaaEdtleb_o';
 let supabaseClient = null;
 
 let QUESTOES = [];
