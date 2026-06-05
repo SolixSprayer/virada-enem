@@ -168,7 +168,7 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
   border-right:1px solid var(--border);
   display:flex;flex-direction:column;
   padding:0;position:relative;z-index:10;
-  overflow:hidden;
+  overflow-y:auto;overflow-x:hidden;
 }
 .sidebar::after {
   content:'';position:absolute;top:0;right:0;width:1px;height:100%;
@@ -1076,14 +1076,14 @@ html,body{height:100%;font-family:'Plus Jakarta Sans',sans-serif;background:var(
    ========================================================================== */
 .revisao-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 300px 1fr;
   gap: 20px;
   margin-top: 15px;
   width: 100%;
 }
-@media(min-width: 900px) {
+@media(max-width: 767px) {
   .revisao-grid {
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 1fr;
   }
 }
 .leitner-sidebar {
@@ -1652,12 +1652,6 @@ input[type=range].tp-range{flex:1;height:4px;accent-color:var(--primary);}
       <!-- DASHBOARD PAGE -->
             <div class="page active" id="page-dashboard">
 
-        <!-- Ad Banner -->
-        <div class="ad-banner">
-          <span class="ad-label">📢 Parceiro</span>
-          <span class="ad-text">Aproveite descontos em cursinhos online! Material de qualidade para turbinar seus estudos.</span>
-          <span class="ad-cta">Ver oferta →</span>
-        </div>
 
         <!-- Welcome Banner -->
         <div class="welcome-banner">
